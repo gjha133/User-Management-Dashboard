@@ -15,8 +15,15 @@ const User = () => {
     const [sortOrder, setSortOrder] = useState('asc')
     const dispatch = useDispatch()
 
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [usersPerPage] = useState(20);
+
+    // const paginate = (array, page_size, page_number) => {
+    //     return array.slice((page_number - 1) * page_size, page_number * page_size);
+    // };
+
     useEffect(() => {
-        if(sorted) dispatch(sortUser({ sortBy: sorted, order: sortOrder }))
+        if (sorted) dispatch(sortUser({ sortBy: sorted, order: sortOrder }))
     }, [sortOrder])
 
 
@@ -45,6 +52,18 @@ const User = () => {
             />
         </div>
     }
+
+    // const totalPages = Math.ceil(users.length / usersPerPage);
+
+    // // Handle previous page click
+    // const goToPreviousPage = () => {
+    //     setCurrentPage((prevPage) => prevPage - 1);
+    // };
+
+    // // Handle next page click
+    // const goToNextPage = () => {
+    //     setCurrentPage((prevPage) => prevPage + 1);
+    // };
 
     return (
         <div>
@@ -142,6 +161,46 @@ const User = () => {
                     )
                         : users?.map(user => <UserCard key={user.id} user={user} />)
                 }
+                {/* {
+                    toggle === "vertical" ? (
+                        <table className="border-brown-400 border-2 p-3 w-[80vw]">
+                            <thead className="flex justify-evenly">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {paginate(users, usersPerPage, currentPage).map((user) => (
+                                    <UserCard key={user.id} user={user} />
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        paginate(users, usersPerPage, currentPage).map((user) => (
+                            <UserCard key={user.id} user={user} />
+                        ))
+                    )
+                }
+            </div>
+            <div className="flex justify-center mt-4">
+                <button
+                    onClick={goToPreviousPage}
+                    disabled={currentPage === 1}
+                    className="p-2 rounded-md border-2 m-2"
+                >
+                    {`<`}
+                </button>
+                <button
+                    onClick={goToNextPage}
+                    disabled={currentPage === totalPages}
+                    className="p-2 rounded-md border-2 m-2"
+                >
+                    {`>`}
+                </button>
+            </div> */}
             </div>
         </div>
     )
