@@ -44,7 +44,7 @@ export const createUser = createAsyncThunk(
 
 export const editUser = createAsyncThunk(
     'editUser',
-    async ({id, values}, { rejectWithValue }) => {
+    async ({ id, values }, { rejectWithValue }) => {
         try {
             const res = await fetch(`https://647de4bfaf984710854a8eb0.mockapi.io/users/${id}`, {
                 method: 'PUT',
@@ -79,16 +79,41 @@ export const deleteUser = createAsyncThunk(
     }
 )
 
+// Search Action
+
+export const searchUser = createAsyncThunk(
+    'searchUser',
+    async ({searchData, select}, { rejectWithValue }) => {
+        try {
+            const url = new URL('https://647de4bfaf984710854a8eb0.mockapi.io/users/');
+            url.searchParams.append(select, searchData);
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: { 'Content-type': 'application/json' },
+            })
+            const result = await response.json()
+            return result
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)
 
 const initialState = {
     users: [],
     loading: true,
-    error: null
+    error: null,
+    searchData: ''
 }
 
 const userDetail = createSlice({
     name: 'userDetail',
     initialState,
+    reducers: {
+        changeSearch: (state, action) => {
+            state.searchData = action.payload
+        }
+    },
     extraReducers: {
         [getAllUsers.pending]: (state) => {
             state.loading = true
@@ -121,8 +146,8 @@ const userDetail = createSlice({
             state.loading = false
             const { id } = action.payload
             const index = state.users.findIndex(user => user.id === id)
-            if(index !== -1) {
-                state.users[index] = { ...state.users[index], ...action.payload}
+            if (index !== -1) {
+                state.users[index] = { ...state.users[index], ...action.payload }
             }
             toast.success('User Updated')
         },
@@ -145,7 +170,21 @@ const userDetail = createSlice({
             state.loading = false
             state.error = action.payload
         },
+
+        [searchUser.pending]: (state) => {
+            state.loading = true
+        },
+        [searchUser.fulfilled]: (state, action) => {
+            state.loading = false
+            state.users = action.payload
+        },
+        [searchUser.rejected]: (state, action) => {
+            state.loading = false
+            state.error = action.payload
+        },
     }
 })
+
+export const { changeSearch } = userDetail.actions
 
 export default userDetail.reducer

@@ -18,7 +18,6 @@ const EditUser = () => {
 
     const onSubmit = (values, actions) => {
         dispatch(editUser({id, values}))
-        actions.resetForm()
         navigate('/')
     }
 
