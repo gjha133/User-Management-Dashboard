@@ -55,11 +55,12 @@ const User = () => {
                             Search
                         </button>
                         <label htmlFor="search" className='ml-4 mr-2'>Search By: </label>
-                        <select name="search" className='outline outline-1 rounded-lg p-1'
+                        <select name="search" className='outline outline-1 rounded-lg p-1 cursor-pointer'
                             value={select}
                             onChange={(e) => setSelect(e.target.value)}
                         >
                             <option value='name' className='text-sm'>Name</option>
+                            <option value='email' className='text-sm'>Email</option>
                             <option value='role' className='text-sm'>Role</option>
                         </select>
                     </form>

@@ -13,9 +13,12 @@ const Sidebar = () => {
             <div className='ml-5 flex items-center'><Logo /></div>
             <div className='flex justify-between pl-5 pr-14 py-3 items-center'>
                 <Dashboard />
-                <Link to={'/'} onClick={() => dispatch(getAllUsers())}>Dashboard</Link>
+                <div>Dashboard</div>
             </div>
-            <div className='flex justify-between pl-5 pr-14 items-center py-3'>
+            <div className='flex justify-between pl-5 pr-14 items-center py-3 hover:bg-white hover:text-black hover:rounded-2xl'>
+                <Link to={'/'} onClick={() => dispatch(getAllUsers())}>All Users</Link>
+            </div>
+            <div className='flex justify-between pl-5 pr-14 items-center py-3 hover:bg-white hover:text-black hover:rounded-2xl'>
                 <Link to={'/create'}>Create User</Link>
             </div>
         </aside>
