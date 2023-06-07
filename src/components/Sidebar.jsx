@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dashboard, Logo } from '../Icons'
+import { Dashboard, Logo } from './Icons'
 import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllUsers } from '../features/userDetailSlice'
@@ -15,12 +15,19 @@ const Sidebar = () => {
                 <Dashboard />
                 <div>Dashboard</div>
             </div>
-            <div className='flex justify-between pl-5 pr-14 items-center py-3 hover:bg-white hover:text-black hover:rounded-2xl'>
-                <Link to={'/'} onClick={() => dispatch(getAllUsers())}>All Users</Link>
-            </div>
-            <div className='flex justify-between pl-5 pr-14 items-center py-3 hover:bg-white hover:text-black hover:rounded-2xl'>
-                <Link to={'/create'}>Create User</Link>
-            </div>
+            <Link 
+                to={'/'} 
+                onClick={() => dispatch(getAllUsers())} 
+                className='flex justify-between pl-5 pr-14 items-center py-3 hover:bg-white hover:text-black hover:rounded-2xl'
+            >
+                <div >All Users</div>
+            </Link>
+            <Link 
+                to={'/create'} 
+                className='flex justify-between pl-5 pr-14 items-center py-3 hover:bg-white hover:text-black hover:rounded-2xl'
+            >
+                <div>Create User</div>
+            </Link>
         </aside>
     )
 }

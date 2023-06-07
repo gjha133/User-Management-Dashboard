@@ -2,9 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import User from "./components/User/User"
 import Sidebar from "./components/Sidebar"
 import Header from "./components/Header"
-import CreateUser from "./components/User/Create/CreateUser"
-import EditUser from "./components/User/Edit/EditUser"
-import Album from './components/User/Album/Album'
+import CreateUser from "./components/User/CreateUser"
+import EditUser from "./components/User/EditUser"
+import Album from './components/User/Album'
 import { Toaster } from "react-hot-toast"
 import { useEffect } from "react"
 import { getAllUsers } from "./features/userDetailSlice"
@@ -28,7 +28,6 @@ function App() {
             <Routes>
               <Route path="/" element={<User />} />
               <Route path='/create' element={<CreateUser />} />
-              <Route path='/edit/:id' element={<EditUser />} />
               <Route path='/edit/:id' element={<EditUser />} />
               <Route path='/album/:id' element={<Album />} />
             </Routes>

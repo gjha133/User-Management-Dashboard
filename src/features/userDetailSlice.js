@@ -83,10 +83,31 @@ export const deleteUser = createAsyncThunk(
 
 export const searchUser = createAsyncThunk(
     'searchUser',
-    async ({searchData, select}, { rejectWithValue }) => {
+    async ({ searchData, select }, { rejectWithValue }) => {
         try {
             const url = new URL('https://647de4bfaf984710854a8eb0.mockapi.io/users/');
             url.searchParams.append(select, searchData);
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: { 'Content-type': 'application/json' },
+            })
+            const result = await response.json()
+            return result
+        } catch (error) {
+            return rejectWithValue(error)
+        }
+    }
+)
+
+// Sorting Action
+
+export const sortUser = createAsyncThunk(
+    'sortUser',
+    async ({ sortBy, order }, { rejectWithValue }) => {
+        try {
+            const url = new URL('https://647de4bfaf984710854a8eb0.mockapi.io/users/');
+            url.searchParams.append('sortBy', sortBy);
+            url.searchParams.append('order', order);
             const response = await fetch(url, {
                 method: 'GET',
                 headers: { 'Content-type': 'application/json' },
@@ -179,6 +200,18 @@ const userDetail = createSlice({
             state.users = action.payload
         },
         [searchUser.rejected]: (state, action) => {
+            state.loading = false
+            state.error = action.payload
+        },
+
+        [sortUser.pending]: (state) => {
+            state.loading = true
+        },
+        [sortUser.fulfilled]: (state, action) => {
+            state.loading = false
+            state.users = action.payload
+        },
+        [sortUser.rejected]: (state, action) => {
             state.loading = false
             state.error = action.payload
         },

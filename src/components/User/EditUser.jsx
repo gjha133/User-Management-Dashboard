@@ -1,30 +1,29 @@
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
-import { formSchema } from './index'
+import { formSchema } from './formValidation'
 import { useDispatch } from 'react-redux'
-import { createUser } from '../../../features/userDetailSlice'
-import { useNavigate } from 'react-router-dom'
+import { editUser } from '../../features/userDetailSlice'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const CreateUser = () => {
+const EditUser = () => {
 
-    const dispatch = useDispatch()
+    const { id } = useParams()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const initialValues = {
         name: '',
         email: '',
         role: '',
     }
 
-    const onSubmit = (values, actions) => {
-        dispatch(createUser(values))
+    const onSubmit = (values) => {
+        dispatch(editUser({id, values}))
         navigate('/')
     }
 
     return (
         <div>
-            <div className='p-3 text-3xl m-3 shadow-md mb-4'>
-                    Create User
-            </div>
+            <h1 className='text-3xl m-5'>Edit User</h1>
             <Formik
                 initialValues={initialValues}
                 validationSchema={formSchema}
@@ -97,7 +96,7 @@ const CreateUser = () => {
                             <button
                                 type="submit"
                                 className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
-                                Create
+                                Edit
                             </button>
                             <button
                                 className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
@@ -112,4 +111,4 @@ const CreateUser = () => {
     )
 }
 
-export default CreateUser
+export default EditUser

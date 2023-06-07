@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import UserCard from './UserCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { setHorizontal, setVertical } from '../../features/toggleSlice'
 import { ColorRing } from 'react-loader-spinner'
 import { BsFillGrid3X2GapFill, BsList } from 'react-icons/bs'
-import { changeSearch, searchUser } from '../../features/userDetailSlice'
+import { changeSearch, searchUser, sortUser } from '../../features/userDetailSlice'
 
 const User = () => {
 
     const { users, loading, searchData } = useSelector(store => store.app)
     const { toggle } = useSelector(store => store.toggle)
     const [select, setSelect] = useState('name')
+    const [sorted, setSorted] = useState('')
+    const [sortOrder, setSortOrder] = useState('asc')
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if(sorted) dispatch(sortUser({ sortBy: sorted, order: sortOrder }))
+    }, [sortOrder])
+
 
     let custom = ''
     if (toggle === 'vertical') {
@@ -42,11 +49,11 @@ const User = () => {
     return (
         <div>
             <div className='flex justify-between shadow-md mb-4'>
-                <div className='px-3 m-3 w-[60vw] flex'>
-                    <form onSubmit={handleSubmit} className='w-full'>
+                <div className='px-3 m-3 w-[60vw] flex justify-evenly'>
+                    <form onSubmit={handleSubmit} className='w-full flex justify-evenly items-center'>
                         <input
                             type="search"
-                            className='outline outline-1 rounded p-2 w-[70%]'
+                            className='outline outline-1 rounded p-2 w-[30%]'
                             placeholder='Search...'
                             value={searchData}
                             onChange={(e) => dispatch(changeSearch(e.target.value))}
@@ -63,9 +70,45 @@ const User = () => {
                             <option value='email' className='text-sm'>Email</option>
                             <option value='role' className='text-sm'>Role</option>
                         </select>
+                        <label htmlFor="sort" className='ml-4 mr-2'>Sort By: </label>
+                        <select name="sort" className='outline outline-1 rounded-lg p-1 cursor-pointer'
+                            value={sorted}
+                            onChange={(e) => {
+                                setSorted(e.target.value);
+                                dispatch(sortUser({ sortBy: e.target.value, order: sortOrder }));
+                            }}
+                        >
+                            <option value='' className='text-sm'>Options</option>
+                            <option value='name' className='text-sm'>Name</option>
+                            <option value='role' className='text-sm'>Role</option>
+                        </select>
+                        <div className='flex flex-col'>
+                            <label htmlFor="asc" className='mx-3'>
+                                <input
+                                    type="radio"
+                                    name="asc"
+                                    value="asc"
+                                    onChange={(e) => setSortOrder(e.target.value)}
+                                    checked={sortOrder === 'asc'}
+                                    className='mx-2'
+                                />
+                                Ascending
+                            </label>
+                            <label htmlFor="desc" className='mx-3'>
+                                <input
+                                    type="radio"
+                                    name="desc"
+                                    value="desc"
+                                    onChange={(e) => setSortOrder(e.target.value)}
+                                    checked={sortOrder === 'desc'}
+                                    className='mx-2'
+                                />
+                                Descending
+                            </label>
+                        </div>
                     </form>
                 </div>
-                <div className='flex justify-end w-[20vw]'>
+                <div className='flex justify-center w-[20vw]'>
                     <button
                         className='p-3 rounded-md border-2 m-3 hover:bg-slate-900 hover:text-white'
                         onClick={() => dispatch(setHorizontal())}

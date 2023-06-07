@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Slice for User Component for grid and list view
+
 const initialState = {
     toggle: 'horizontal',
 }
