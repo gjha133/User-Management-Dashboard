@@ -22,19 +22,21 @@ const User = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        dispatch(searchUser( {searchData, select }))
+        dispatch(searchUser({ searchData, select }))
     }
 
     if (loading) {
-        return <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-        />
+        return <div className='absolute left-[50%] top-[40%]'>
+            <ColorRing
+                visible={true}
+                height="150"
+                width="150"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+            />
+        </div>
     }
 
     return (
@@ -53,7 +55,7 @@ const User = () => {
                             Search
                         </button>
                         <label htmlFor="search" className='ml-4 mr-2'>Search By: </label>
-                        <select name="search"className='outline outline-1 rounded-lg p-1'
+                        <select name="search" className='outline outline-1 rounded-lg p-1'
                             value={select}
                             onChange={(e) => setSelect(e.target.value)}
                         >
