@@ -7,7 +7,8 @@ import { Toaster } from "react-hot-toast"
 import { useEffect } from "react"
 import { getAllUsers } from "./features/userDetailSlice"
 import { useDispatch } from "react-redux"
-import UserForm from "./components/User/UserForm"
+import CreateUser from "./components/User/CreateUser"
+import EditUser from "./components/User/EditUser"
 
 function App() {
   const dispatch = useDispatch()
@@ -26,8 +27,8 @@ function App() {
           <div className="pt-10 p-8 sm:p-12 lg:pt-10 lg:p-2 xl:pt-14 xl:p-2">
             <Routes>
               <Route path="/" element={<User />} />
-              <Route path='/create' element={<UserForm type={'Create'} />} />
-              <Route path='/edit/:id' element={<UserForm type={'Edit'} />} />
+              <Route path='/create' element={<CreateUser />} />
+              <Route path='/edit/:id' element={<EditUser />} />
               <Route path='/album/:id' element={<Album />} />
             </Routes>
           </div>

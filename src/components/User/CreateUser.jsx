@@ -2,14 +2,12 @@ import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import { formSchema } from './formValidation'
 import { useDispatch } from 'react-redux'
-import { createUser, editUser } from '../../features/userDetailSlice'
-import { useNavigate, useParams } from 'react-router-dom'
+import { createUser } from '../../features/userDetailSlice'
+import { useNavigate } from 'react-router-dom'
 
-const UserForm = ({ type }) => {
+const CreateUser = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const { id } = useParams()
-
     const initialValues = {
         name: '',
         email: '',
@@ -17,16 +15,13 @@ const UserForm = ({ type }) => {
     }
 
     const onSubmit = (values) => {
-        if(type === 'Create') {
-            dispatch(createUser(values))
-        }
-        else dispatch(editUser({id, values}))
+        dispatch(createUser(values))
         navigate('/')
     }
 
     return (
-        <div className='flex flex-col justify-center items-center h-[80vh]'>
-            <div className='p-3 text-3xl m-3 mb-4'>{type} User</div>
+        <div className='flex flex-col justify-center items-center h-screen'>
+            <div className='p-3 text-3xl m-3 mb-4'>Create User</div>
             <Formik
                 initialValues={initialValues}
                 validationSchema={formSchema}
@@ -80,9 +75,9 @@ const UserForm = ({ type }) => {
                             <div className='p-5'>
                                 <button
                                     type='submit'
-                                    className='p-2 px-8 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'
+                                    className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'
                                 >
-                                    {type}
+                                    Create
                                 </button>
                             </div>
                         </div>
@@ -93,4 +88,4 @@ const UserForm = ({ type }) => {
     )
 }
 
-export default UserForm
+export default CreateUser

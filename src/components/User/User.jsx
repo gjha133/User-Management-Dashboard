@@ -15,6 +15,7 @@ const User = () => {
     const [sorted, setSorted] = useState('')
     const [sortOrder, setSortOrder] = useState('asc')
     const dispatch = useDispatch()
+    console.log(users)
 
     // const [currentPage, setCurrentPage] = useState(1);
     // const [usersPerPage] = useState(20);
@@ -144,7 +145,7 @@ const User = () => {
                     </button>
                 </div>
             </div>
-            <table className={`${toggle === 'vertical' ? 'flex flex-col': 'flex flex-row flex-wrap' }`}>
+            <table className={`${toggle === 'vertical' ? 'flex flex-col' : 'flex flex-row flex-wrap'}`}>
                 {
                     toggle === 'vertical' ? (
                         <table className='shadow-md border p-3 w-[80vw]'>
@@ -154,11 +155,11 @@ const User = () => {
                                 <tr className='font-bold text-xl py-2'>Role</tr>
                                 <tr className='font-bold text-xl py-2'>Actions</tr>
                             </thead>
-                            <tbody>
+                            <div>
                                 {
                                     users?.map(user => <UserCard key={user.id} user={user} />)
                                 }
-                            </tbody>
+                            </div>
                         </table>
                     )
                         : users?.map(user => <UserCard key={user.id} user={user} />)

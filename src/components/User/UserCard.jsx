@@ -43,17 +43,11 @@ const UserCard = ({ user }) => {
                     :
                     (
                         <div className='shadow-sm border p-1 py-2 w-[80vw]'>
-                            <tr className='grid grid-cols-4 gap-4'>
-                                <td className='flex justify-evenly items-center'>
-                                    <div>{name}</div>
-                                </td>
-                                <td className='flex justify-evenly items-center'>
-                                    <div>{email}</div>
-                                </td>
-                                <td className='flex justify-evenly items-center'>
-                                    <div>{role}</div>
-                                </td>
-                                <td className='flex justify-evenly items-center'>
+                            <div className='grid grid-cols-4 gap-4'>
+                                <div className='flex justify-evenly items-center'>{name}</div>
+                                <div className='flex justify-evenly items-center'>{email}</div>
+                                <div className='flex justify-evenly items-center'>{role}</div>
+                                <div className='flex justify-evenly items-center'>
                                     <div className='flex items-center'>
                                         <MdPhotoLibrary
                                             className='m-3 ml-0 hover:cursor-pointer'
@@ -71,8 +65,8 @@ const UserCard = ({ user }) => {
                                             onClick={() => dispatch(deleteUser(id))}
                                         />
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </div>
                         </div>
                     )
             }
