@@ -27,14 +27,6 @@ const User = () => {
         if (sorted) dispatch(sortUser({ sortBy: sorted, order: sortOrder }))
     }, [sortOrder])
 
-
-    let custom = ''
-    if (toggle === 'vertical') {
-        custom = 'flex flex-col '
-    } else {
-        custom = 'flex flex-row flex-wrap'
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(searchUser({ searchData, select }))
@@ -77,12 +69,12 @@ const User = () => {
                         <div className='flex justify-start'>
                             <input
                                 type="search"
-                                className='w-30 outline outline-1 mr-2 rounded-lg px-2 sm:w-60 xl:py-1'
+                                className='w-32 shadow-lg border rounded-lg px-2 sm:w-60 xl:py-1'
                                 placeholder='Search...'
                                 value={searchData}
                                 onChange={(e) => dispatch(changeSearch(e.target.value))}
                             />
-                            <button type='submit' className='px-1 outline outline-1 rounded-full hover:bg-[#050505] hover:text-white'>
+                            <button type='submit' className='px-1 shadow-lg border rounded-lg hover:bg-[#050505] hover:text-white'>
                                 <AiOutlineSearch />
                             </button>
                         </div>
@@ -152,15 +144,15 @@ const User = () => {
                     </button>
                 </div>
             </div>
-            <div className={`${custom}`}>
+            <table className={`${toggle === 'vertical' ? 'flex flex-col': 'flex flex-row flex-wrap' }`}>
                 {
                     toggle === 'vertical' ? (
-                        <table className='border-brown-400 border-2 p-3 w-[80vw]'>
-                            <thead className='flex justify-evenly'>
-                                <tr>Name</tr>
-                                <tr>Email</tr>
-                                <tr>Role</tr>
-                                <tr>Actions</tr>
+                        <table className='shadow-md border p-3 w-[80vw]'>
+                            <thead className='grid grid-cols-4 gap-4 text-center'>
+                                <tr className='font-bold text-xl py-2'>Name</tr>
+                                <tr className='font-bold text-xl py-2'>Email</tr>
+                                <tr className='font-bold text-xl py-2'>Role</tr>
+                                <tr className='font-bold text-xl py-2'>Actions</tr>
                             </thead>
                             <tbody>
                                 {
@@ -211,7 +203,7 @@ const User = () => {
                     {`>`}
                 </button>
             </div> */}
-            </div>
+            </table>
         </div>
     )
 }

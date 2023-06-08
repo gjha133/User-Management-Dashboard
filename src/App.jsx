@@ -2,13 +2,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import User from "./components/User/User"
 import Sidebar from "./components/Sidebar"
 import Header from "./components/Header"
-import CreateUser from "./components/User/CreateUser"
-import EditUser from "./components/User/EditUser"
 import Album from './components/User/Album'
 import { Toaster } from "react-hot-toast"
 import { useEffect } from "react"
 import { getAllUsers } from "./features/userDetailSlice"
 import { useDispatch } from "react-redux"
+import UserForm from "./components/User/UserForm"
 
 function App() {
   const dispatch = useDispatch()
@@ -24,11 +23,11 @@ function App() {
         <Sidebar />
         <div className="ml-10 sm:ml-16 lg:ml-36 xl:ml-52">
           <Header />
-          <div className="pt-10 p-8 sm:p-12 lg:pt-14 lg:p-2 xl:pt-14 xl:p-2">
+          <div className="pt-10 p-8 sm:p-12 lg:pt-10 lg:p-2 xl:pt-14 xl:p-2">
             <Routes>
               <Route path="/" element={<User />} />
-              <Route path='/create' element={<CreateUser />} />
-              <Route path='/edit/:id' element={<EditUser />} />
+              <Route path='/create' element={<UserForm type={'Create'} />} />
+              <Route path='/edit/:id' element={<UserForm type={'Edit'} />} />
               <Route path='/album/:id' element={<Album />} />
             </Routes>
           </div>

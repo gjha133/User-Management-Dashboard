@@ -2,12 +2,14 @@ import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import { formSchema } from './formValidation'
 import { useDispatch } from 'react-redux'
-import { createUser } from '../../features/userDetailSlice'
-import { useNavigate } from 'react-router-dom'
+import { createUser, editUser } from '../../features/userDetailSlice'
+import { useNavigate, useParams } from 'react-router-dom'
 
-const CreateUser = () => {
+const UserForm = ({ type }) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { id } = useParams()
+
     const initialValues = {
         name: '',
         email: '',
@@ -15,13 +17,16 @@ const CreateUser = () => {
     }
 
     const onSubmit = (values) => {
-        dispatch(createUser(values))
+        if(type === 'Create') {
+            dispatch(createUser(values))
+        }
+        else dispatch(editUser({id, values}))
         navigate('/')
     }
 
     return (
-        <div className='flex flex-col justify-center items-center h-screen'>
-            <div className='p-3 text-3xl m-3 mb-4'>Create User</div>
+        <div className='flex flex-col justify-center items-center h-[80vh]'>
+            <div className='p-3 text-3xl m-3 mb-4'>{type} User</div>
             <Formik
                 initialValues={initialValues}
                 validationSchema={formSchema}
@@ -75,12 +80,9 @@ const CreateUser = () => {
                             <div className='p-5'>
                                 <button
                                     type='submit'
-                                    className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'
+                                    className='p-2 px-8 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'
                                 >
-                                    Create
-                                </button>
-                                <button className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
-                                    Reset
+                                    {type}
                                 </button>
                             </div>
                         </div>
@@ -91,4 +93,4 @@ const CreateUser = () => {
     )
 }
 
-export default CreateUser
+export default UserForm
