@@ -17,95 +17,77 @@ const EditUser = () => {
     }
 
     const onSubmit = (values) => {
-        dispatch(editUser({id, values}))
+        dispatch(editUser({ id, values }))
         navigate('/')
     }
 
     return (
-        <div>
-            <h1 className='text-3xl m-5'>Edit User</h1>
+        <div className='flex flex-col justify-center items-center h-screen'>
+            <div className='p-3 text-3xl m-3 mb-4'>Edit User</div>
             <Formik
                 initialValues={initialValues}
                 validationSchema={formSchema}
                 onSubmit={onSubmit}
             >
-                {
-                    ({ errors, touched }) => (
-                        <Form className='flex flex-col p-5'>
-                            <label
-                                htmlFor="name"
-                                className='text-lg p-3'
-                            >
+                {({ errors, touched }) => (
+                    <Form className='flex flex-col p-5 justify-center max-w-md mx-auto'>
+                        <div className='flex flex-col mb-4'>
+                            <label htmlFor='name' className='text-lg p-3'>
                                 Name
                             </label>
                             <Field
-                                type="text"
-                                name="name"
-                                className='w-30 outline outline-1 w-96'
+                                type='text'
+                                name='name'
+                                className='w-full p-2 outline outline-1 sm:w-72 lg:w-80 xl:w-96'
                             />
-                            <div
-                                className='text-red-700 ml-2'
-                            >{
-                                errors.name &&
-                                touched.name &&
-                                <p>{errors.name}</p>
-                            }
+                            <div className='text-red-700 ml-2'>
+                                {errors.name && touched.name && <p>{errors.name}</p>}
                             </div>
+                        </div>
 
-                            <label
-                                htmlFor="email"
-                                className='text-lg p-3'
-                            >
+                        <div className='flex flex-col mb-4'>
+                            <label htmlFor='email' className='text-lg p-3'>
                                 Email
                             </label>
                             <Field
-                                type="email"
-                                name="email"
-                                className='w-30 outline outline-1 w-96'
+                                type='email'
+                                name='email'
+                                className='w-full p-2 outline outline-1 sm:w-72 lg:w-80 xl:w-96'
                             />
-                            <div
-                                className='text-red-700 ml-2'
-                            >{
-                                errors.email &&
-                                touched.email &&
-                                <p>{errors.email}</p>
-                            }
+                            <div className='text-red-700 ml-2'>
+                                {errors.email && touched.email && <p>{errors.email}</p>}
                             </div>
+                        </div>
 
-                            <label
-                                htmlFor="role"
-                                className='text-lg p-3'
-                            >
+                        <div className='flex flex-col mb-4'>
+                            <label htmlFor='role' className='text-lg p-3'>
                                 Role
                             </label>
                             <Field
-                                type="text"
-                                name="role"
-                                className='w-30 outline outline-1 w-96'
+                                type='text'
+                                name='role'
+                                className='w-full p-2 outline outline-1 sm:w-72 lg:w-80 xl:w-96'
                             />
-                            <div
-                                className='text-red-700 ml-2'
-                            >{
-                                errors.role &&
-                                touched.role &&
-                                <p>{errors.role}</p>
-                            }
+                            <div className='text-red-700 ml-2'>
+                                {errors.role && touched.role && <p>{errors.role}</p>}
                             </div>
-
-                            <div className='p-5'>
-                            <button
-                                type="submit"
-                                className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
-                                Edit
-                            </button>
-                            <button
-                                className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
-                                Reset
-                            </button>
                         </div>
-                        </Form>
-                    )
-                }
+
+                        <div className='flex justify-center'>
+                            <div className='p-5'>
+                                <button
+                                    type='submit'
+                                    className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'
+                                >
+                                    Edit
+                                </button>
+                                <button className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </Form>
+                )}
             </Formik>
         </div>
     )
