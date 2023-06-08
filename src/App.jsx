@@ -22,9 +22,9 @@ function App() {
     <Router>
       <div className="w-screen h-screen">
         <Sidebar />
-        <div className="ml-52">
+        <div className="ml-10 sm:ml-16 lg:ml-36 xl:ml-52">
           <Header />
-          <div className="pt-14 p-2">
+          <div className="pt-10 p-8 sm:p-12 lg:pt-14 lg:p-2 xl:pt-14 xl:p-2">
             <Routes>
               <Route path="/" element={<User />} />
               <Route path='/create' element={<CreateUser />} />

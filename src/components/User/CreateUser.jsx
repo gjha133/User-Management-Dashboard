@@ -21,9 +21,9 @@ const CreateUser = () => {
     }
 
     return (
-        <div>
-            <div className='p-3 text-3xl m-3 shadow-md mb-4'>
-                    Create User
+        <div className='flex flex-col justify-center items-center h-full'>
+            <div className='p-3 text-3xl m-3 mb-4'>
+                Create User
             </div>
             <Formik
                 initialValues={initialValues}
@@ -32,78 +32,86 @@ const CreateUser = () => {
             >
                 {
                     ({ errors, touched }) => (
-                        <Form className='flex flex-col p-5'>
-                            <label
-                                htmlFor="name"
-                                className='text-lg p-3'
-                            >
-                                Name
-                            </label>
-                            <Field
-                                type="text"
-                                name="name"
-                                className='w-30 outline outline-1 w-96'
-                            />
-                            <div
-                                className='text-red-700 ml-2'
-                            >{
-                                errors.name &&
-                                touched.name &&
-                                <p>{errors.name}</p>
-                            }
+                        <Form className='flex flex-col p-5 justify-center'>
+                            <div className='flex flex-col'>
+                                <label
+                                    htmlFor="name"
+                                    className='text-lg p-3'
+                                >
+                                    Name
+                                </label>
+                                <Field
+                                    type="text"
+                                    name="name"
+                                    className='w-30 outline outline-1 w-96'
+                                />
+                                <div
+                                    className='text-red-700 ml-2'
+                                >{
+                                        errors.name &&
+                                        touched.name &&
+                                        <p>{errors.name}</p>
+                                    }
+                                </div>
                             </div>
 
-                            <label
-                                htmlFor="email"
-                                className='text-lg p-3'
-                            >
-                                Email
-                            </label>
-                            <Field
-                                type="email"
-                                name="email"
-                                className='w-30 outline outline-1 w-96'
-                            />
-                            <div
-                                className='text-red-700 ml-2'
-                            >{
-                                errors.email &&
-                                touched.email &&
-                                <p>{errors.email}</p>
-                            }
+                            <div className='flex flex-col'>
+                                <label
+                                    htmlFor="email"
+                                    className='text-lg p-3'
+                                >
+                                    Email
+                                </label>
+                                <Field
+                                    type="email"
+                                    name="email"
+                                    className='w-30 outline outline-1 w-96'
+                                />
+                                <div
+                                    className='text-red-700 ml-2'
+                                >{
+                                        errors.email &&
+                                        touched.email &&
+                                        <p>{errors.email}</p>
+                                    }
+                                </div>
                             </div>
 
-                            <label
-                                htmlFor="role"
-                                className='text-lg p-3'
-                            >
-                                Role
-                            </label>
-                            <Field
-                                type="text"
-                                name="role"
-                                className='w-30 outline outline-1 w-96'
-                            />
-                            <div
-                                className='text-red-700 ml-2'
-                            >{
-                                errors.role &&
-                                touched.role &&
-                                <p>{errors.role}</p>
-                            }
+                            <div className='flex flex-col'>
+                                <label
+                                    htmlFor="role"
+                                    className='text-lg p-3'
+                                >
+                                    Role
+                                </label>
+                                <Field
+                                    type="text"
+                                    name="role"
+                                    className='w-30 outline outline-1 w-96'
+                                />
+                                <div
+                                    className='text-red-700 ml-2'
+                                >{
+                                        errors.role &&
+                                        touched.role &&
+                                        <p>{errors.role}</p>
+                                    }
+                                </div>
                             </div>
 
-                            <div className='p-5'>
-                            <button
-                                type="submit"
-                                className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
-                                Create
-                            </button>
-                            <button
-                                className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
-                                Reset
-                            </button>
-                        </div>
+                            <div className='flex justify-center'>
+                                <div className='p-5'>
+                                    <button
+                                        type="submit"
+                                        className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
+                                        Create
+                                    </button>
+                                    <button
+                                        className='p-2 outline outline-1 rounded-xl m-2 hover:bg-[#050505] hover:text-white'>
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
                         </Form>
                     )
                 }

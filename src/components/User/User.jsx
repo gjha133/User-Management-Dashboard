@@ -5,6 +5,7 @@ import { setHorizontal, setVertical } from '../../features/toggleSlice'
 import { ColorRing } from 'react-loader-spinner'
 import { BsFillGrid3X2GapFill, BsList } from 'react-icons/bs'
 import { changeSearch, searchUser, sortUser } from '../../features/userDetailSlice'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 const User = () => {
 
@@ -66,76 +67,85 @@ const User = () => {
     // };
 
     return (
-        <div>
+        <div className=''>
             <div className='flex justify-between shadow-md mb-4'>
-                <div className='px-3 m-3 w-[60vw] flex justify-evenly'>
-                    <form onSubmit={handleSubmit} className='w-full flex justify-evenly items-center'>
-                        <input
-                            type="search"
-                            className='outline outline-1 rounded p-2 w-[30%]'
-                            placeholder='Search...'
-                            value={searchData}
-                            onChange={(e) => dispatch(changeSearch(e.target.value))}
-                        />
-                        <button type='submit' className='px-2 py-1 m-3 outline outline-1 rounded-lg hover:bg-[#050505] hover:text-white'>
-                            Search
-                        </button>
-                        <label htmlFor="search" className='ml-4 mr-2'>Search By: </label>
-                        <select name="search" className='outline outline-1 rounded-lg p-1 cursor-pointer'
-                            value={select}
-                            onChange={(e) => setSelect(e.target.value)}
-                        >
-                            <option value='name' className='text-sm'>Name</option>
-                            <option value='email' className='text-sm'>Email</option>
-                            <option value='role' className='text-sm'>Role</option>
-                        </select>
-                        <label htmlFor="sort" className='ml-4 mr-2'>Sort By: </label>
-                        <select name="sort" className='outline outline-1 rounded-lg p-1 cursor-pointer'
-                            value={sorted}
-                            onChange={(e) => {
-                                setSorted(e.target.value);
-                                dispatch(sortUser({ sortBy: e.target.value, order: sortOrder }));
-                            }}
-                        >
-                            <option value='' className='text-sm'>Options</option>
-                            <option value='name' className='text-sm'>Name</option>
-                            <option value='role' className='text-sm'>Role</option>
-                        </select>
-                        <div className='flex flex-col'>
-                            <label htmlFor="asc" className='mx-3'>
+                <div className='px-3 m-3 w-[70vw] lg:w-[80vw] xl:w-[60vw] flex justify-evenly'>
+                    <form
+                        onSubmit={handleSubmit}
+                        className='flex flex-col lg:flex-row w-full justify-evenly items-center'
+                    >
+                        <div className='flex justify-start'>
+                            <input
+                                type="search"
+                                className='w-30 outline outline-1 mr-2 rounded-lg px-2 sm:w-60 xl:py-1'
+                                placeholder='Search...'
+                                value={searchData}
+                                onChange={(e) => dispatch(changeSearch(e.target.value))}
+                            />
+                            <button type='submit' className='px-1 outline outline-1 rounded-full hover:bg-[#050505] hover:text-white'>
+                                <AiOutlineSearch />
+                            </button>
+                        </div>
+                        <div className='flex items-center'>
+                            <label htmlFor="search" className='text-sm m-2 xl:text-base xl:m-3'>Search By: </label>
+                            <select name="search" className='h-6 text-sm xl:text-base outline outline-1 rounded-lg cursor-pointer xl:h-8'
+                                value={select}
+                                onChange={(e) => setSelect(e.target.value)}
+                            >
+                                <option value='name' className='text-sm xl:text-base'>Name</option>
+                                <option value='email' className='text-sm xl:text-base'>Email</option>
+                                <option value='role' className='text-sm xl:text-base'>Role</option>
+                            </select>
+                        </div>
+                        <div className='flex items-center'>
+                            <label htmlFor="sort" className='text-sm m-2 xl:text-base xl:m-3'>Sort By: </label>
+                            <select name="sort" className='h-6 text-sm xl:text-base outline outline-1 rounded-lg cursor-pointer xl:h-8'
+                                value={sorted}
+                                onChange={(e) => {
+                                    setSorted(e.target.value);
+                                    dispatch(sortUser({ sortBy: e.target.value, order: sortOrder }));
+                                }}
+                            >
+                                <option value='' className='text-sm xl:text-base'>Options</option>
+                                <option value='name' className='text-sm xl:text-base'>Name</option>
+                                <option value='role' className='text-sm xl:text-base'>Role</option>
+                            </select>
+                        </div>
+                        <div className='flex items-center text-sm xl:text-base justify-start mt-1 lg:flex-col lg:items-start'>
+                            <label htmlFor="asc" className='mx-1'>
                                 <input
                                     type="radio"
                                     name="asc"
                                     value="asc"
                                     onChange={(e) => setSortOrder(e.target.value)}
                                     checked={sortOrder === 'asc'}
-                                    className='mx-2'
+                                    className='mx-1'
                                 />
                                 Ascending
                             </label>
-                            <label htmlFor="desc" className='mx-3'>
+                            <label htmlFor="desc" className='mx-1'>
                                 <input
                                     type="radio"
                                     name="desc"
                                     value="desc"
                                     onChange={(e) => setSortOrder(e.target.value)}
                                     checked={sortOrder === 'desc'}
-                                    className='mx-2'
+                                    className='mx-1'
                                 />
                                 Descending
                             </label>
                         </div>
                     </form>
                 </div>
-                <div className='flex justify-center w-[20vw]'>
+                <div className='hidden xl:flex items-center sm:flex mx-2'>
                     <button
-                        className='p-3 rounded-md border-2 m-3 hover:bg-slate-900 hover:text-white'
+                        className={`p-2 rounded-sm border-2 xl:mr-2 lg:mr-1 sm:mr-1 hover:bg-slate-900 hover:text-white ${toggle === 'horizontal' ? 'text-white bg-[#050505]' : ''}`}
                         onClick={() => dispatch(setHorizontal())}
                     >
                         <BsFillGrid3X2GapFill />
                     </button>
                     <button
-                        className='p-3 rounded-md border-2 m-3 ml-0 hover:bg-slate-900 hover:text-white'
+                        className={`p-2 rounded-sm border-2 xl:mr-16 lg:mr-4 sm:mr-2 hover:bg-slate-900 hover:text-white ${toggle === 'vertical' ? 'text-white bg-[#050505]' : ''}`}
                         onClick={() => dispatch(setVertical())}
                     >
                         <BsList />

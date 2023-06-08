@@ -22,15 +22,14 @@ export const getAllUsers = createAsyncThunk(
 export const createUser = createAsyncThunk(
     'createUser',
     async (data, { rejectWithValue }) => {
-        console.log(data)
-        const res = await fetch('https://647de4bfaf984710854a8eb0.mockapi.io/users', {
-            method: 'POST',
-            headers: {
-                "Content-Type": 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
         try {
+            const res = await fetch('https://647de4bfaf984710854a8eb0.mockapi.io/users', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
             const result = await res.json()
             toast.success('User Created')
             return result
