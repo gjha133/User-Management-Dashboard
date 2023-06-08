@@ -20,7 +20,7 @@ const CreateUser = () => {
     }
 
     return (
-        <div className='flex flex-col justify-center items-center h-screen'>
+        <div className='flex flex-col justify-center items-center h-[85vh]'>
             <div className='p-3 text-3xl m-3 mb-4'>Create User</div>
             <Formik
                 initialValues={initialValues}

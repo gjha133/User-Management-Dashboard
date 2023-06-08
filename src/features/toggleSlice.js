@@ -19,8 +19,6 @@ const toggleSlice = createSlice({
     }
 })
 
-// console.log(toggleSlice)
-
 export default toggleSlice.reducer
 
 export const { setHorizontal, setVertical } = toggleSlice.actions

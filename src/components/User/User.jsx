@@ -15,7 +15,6 @@ const User = () => {
     const [sorted, setSorted] = useState('')
     const [sortOrder, setSortOrder] = useState('asc')
     const dispatch = useDispatch()
-    console.log(users)
 
     // const [currentPage, setCurrentPage] = useState(1);
     // const [usersPerPage] = useState(20);
@@ -75,7 +74,7 @@ const User = () => {
                                 value={searchData}
                                 onChange={(e) => dispatch(changeSearch(e.target.value))}
                             />
-                            <button type='submit' className='px-1 shadow-lg border rounded-lg hover:bg-[#050505] hover:text-white'>
+                            <button type='submit' className='px-3 ml-1 shadow-lg border rounded-lg hover:bg-[#050505] hover:text-white'>
                                 <AiOutlineSearch />
                             </button>
                         </div>

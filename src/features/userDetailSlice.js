@@ -31,7 +31,6 @@ export const createUser = createAsyncThunk(
                 body: JSON.stringify(data)
             })
             const result = await res.json()
-            toast.success('User Created')
             return result
         } catch (error) {
             return rejectWithValue(error)
@@ -53,7 +52,6 @@ export const editUser = createAsyncThunk(
                 body: JSON.stringify(values)
             })
             const result = await res.json()
-            // console.log(result);
             return result
         } catch (error) {
             return rejectWithValue(error)
@@ -153,6 +151,7 @@ const userDetail = createSlice({
         [createUser.fulfilled]: (state, action) => {
             state.loading = false
             state.users.push(action.payload)
+            toast.success('User Created')
         },
         [createUser.rejected]: (state, action) => {
             state.loading = false
@@ -185,6 +184,7 @@ const userDetail = createSlice({
             if (id) {
                 state.users = state.users.filter(user => user.id !== id)
             }
+            toast.success('User Deleted')
         },
         [deleteUser.rejected]: (state, action) => {
             state.loading = false
@@ -197,6 +197,7 @@ const userDetail = createSlice({
         [searchUser.fulfilled]: (state, action) => {
             state.loading = false
             state.users = action.payload
+            state.users.length === 0 ? toast.error('0 User Found') : toast.success(`${state.users.length} User(s) Found`)
         },
         [searchUser.rejected]: (state, action) => {
             state.loading = false
