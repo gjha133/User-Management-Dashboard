@@ -41,7 +41,7 @@ const User = () => {
     }
 
     if (loading) {
-        return <div className='absolute left-[50%] top-[40%]'>
+        return <div className='absolute left-[35%] top-[30%] sm:left-[45%] sm:top-[35%] lg:left-[47.5%] xl:left-[50%] xl:top-[40%]'>
             <ColorRing
                 visible={true}
                 height="150"
