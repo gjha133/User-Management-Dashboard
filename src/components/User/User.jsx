@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import UserCard from './UserCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { setHorizontal, setVertical } from '../../features/toggleSlice'
+import { changeSearch, searchUser, sortUser } from '../../features/userDetailSlice'
+import { gotToPage, nextPage, prevPage } from '../../features/pageSlice'
+import UserCard from './UserCard'
 import { ColorRing } from 'react-loader-spinner'
 import { BsFillGrid3X2GapFill, BsList } from 'react-icons/bs'
-import { changeSearch, searchUser, sortUser } from '../../features/userDetailSlice'
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const User = () => {
 
     const { users, loading, searchData } = useSelector(store => store.app)
+    const { currentPage, usersPerPage } = useSelector(store => store.page)
     const { toggle } = useSelector(store => store.toggle)
     const [select, setSelect] = useState('name')
     const [sorted, setSorted] = useState('')
     const [sortOrder, setSortOrder] = useState('asc')
     const dispatch = useDispatch()
 
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [usersPerPage] = useState(20);
-
-    // const paginate = (array, page_size, page_number) => {
-    //     return array.slice((page_number - 1) * page_size, page_number * page_size);
-    // };
+    const paginate = (page_size, page_number) => {
+        return users.slice((page_number - 1) * page_size, page_number * page_size);
+    };
 
     useEffect(() => {
         if (sorted) dispatch(sortUser({ sortBy: sorted, order: sortOrder }))
@@ -30,6 +29,13 @@ const User = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(searchUser({ searchData, select }))
+    }
+
+    const totalPages = Math.ceil(users.length / usersPerPage);
+
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
     }
 
     if (loading) {
@@ -46,17 +52,6 @@ const User = () => {
         </div>
     }
 
-    // const totalPages = Math.ceil(users.length / usersPerPage);
-
-    // // Handle previous page click
-    // const goToPreviousPage = () => {
-    //     setCurrentPage((prevPage) => prevPage - 1);
-    // };
-
-    // // Handle next page click
-    // const goToNextPage = () => {
-    //     setCurrentPage((prevPage) => prevPage + 1);
-    // };
 
     return (
         <div className=''>
@@ -155,55 +150,43 @@ const User = () => {
                                 <tr className='font-bold text-xl py-2'>Actions</tr>
                             </thead>
                             <div>
-                                {
-                                    users?.map(user => <UserCard key={user.id} user={user} />)
-                                }
+                                {paginate(usersPerPage, currentPage).map((user) => (
+                                    <UserCard key={user.id} user={user} />
+                                ))}
                             </div>
                         </table>
                     )
-                        : users?.map(user => <UserCard key={user.id} user={user} />)
-                }
-                {/* {
-                    toggle === "vertical" ? (
-                        <table className="border-brown-400 border-2 p-3 w-[80vw]">
-                            <thead className="flex justify-evenly">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {paginate(users, usersPerPage, currentPage).map((user) => (
-                                    <UserCard key={user.id} user={user} />
-                                ))}
-                            </tbody>
-                        </table>
-                    ) : (
-                        paginate(users, usersPerPage, currentPage).map((user) => (
+                        : paginate(usersPerPage, currentPage).map((user) => (
                             <UserCard key={user.id} user={user} />
                         ))
-                    )
                 }
-            </div>
+            </table>
             <div className="flex justify-center mt-4">
                 <button
-                    onClick={goToPreviousPage}
+                    onClick={() => dispatch(prevPage())}
                     disabled={currentPage === 1}
-                    className="p-2 rounded-md border-2 m-2"
+                    className='p-2 rounded-md border-2 m-2'
                 >
                     {`<`}
                 </button>
+                {pageNumbers.map((pageNumber) => (
+                    <button
+                        key={pageNumber}
+                        onClick={() => dispatch(gotToPage(pageNumber))}
+                        disabled={currentPage === pageNumber}
+                        className={`p-2 rounded-md border-2 m-2 ${currentPage === pageNumber ? 'bg-[#050505] text-white' : 'hover:bg-[#05050590] hover:text-white'}`}
+                    >
+                        {pageNumber}
+                    </button>
+                ))}
                 <button
-                    onClick={goToNextPage}
+                    onClick={() => dispatch(nextPage())}
                     disabled={currentPage === totalPages}
-                    className="p-2 rounded-md border-2 m-2"
+                    className='p-2 rounded-md border-2 m-2'
                 >
                     {`>`}
                 </button>
-            </div> */}
-            </table>
+            </div>
         </div>
     )
 }
